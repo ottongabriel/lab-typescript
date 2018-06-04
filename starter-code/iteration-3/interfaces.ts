@@ -6,8 +6,8 @@
 
 interface TodoItemInterface {
   title: string;
-  status: string;
-  updatedAt: Date;
+  status: boolean;
+  updatedAt: number;
   toggleStatus():void;
 }
 
@@ -22,7 +22,7 @@ interface TodoItemInterface {
 // - Method for show all tasks that are not yet done, doesn't return anything.
 
 interface TodoInterface {
-  doArray: Array<TodoItemInterface>;
+  ToDoItems: Array<TodoItemInterface>;
   addTask(TodoItemInterface):number;
   listAllTasks():void;
   deleteTask(TodoItemInterface):number;

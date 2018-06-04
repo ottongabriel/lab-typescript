@@ -4,61 +4,53 @@ import {TodoInterface, TodoItemInterface} from './interfaces';
 
 // Create class TodoItem that implements the corresponding interface
 class TodoItem implements TodoItemInterface {
-  theTitle: string
+  status: boolean
+  updatedAt: number 
   constructor(
-    public status: string,
-    public updatedAt: Date,
     public title: string,
   ) {
-      this.updatedAt = new Date(); 
-      this.title = this.theTitle;
-      this.status = "unfinished";
+      this.updatedAt = Date.now(),
+      this.status = false;
     }
 
   toggleStatus():void {
-    if(this.status === "finished") {
-      this.status = "unfinished";
-    }
-    else {
-      this.status = "finished";
-    }
+    this.status = !this.status;
+    this.updatedAt = Date.now();
   }
 }
 
 
 // Create class TodoList that implements the corresponding interface
 class TodoList implements TodoInterface {
-  constructor(
-    public doArray: Array<TodoItem>,
-  ) {}
+  ToDoItems: Array<TodoItem> = [];
 
-  addTask(task:TodoItem):number {
-    this.doArray.push(task);
+  addTask(theItem:TodoItem):number {
+    this.ToDoItems.push(theItem)
     console.log(`
     =========== NEW TASK ===========
-    Task ${task.title} inserted in the list
+    Task ${theItem.title} inserted in the list
     `)
-    return this.doArray.length
+    return this.ToDoItems.length
   }
 
   listAllTasks():void {
-    this.doArray.forEach(task => {
+    this.ToDoItems.forEach(task => {
       console.log(task.title);
-      console.log(task.updatedAt);
+      // console.log(task.updatedAt);
     })
   }
 
   deleteTask(task:TodoItem):number {
-    this.doArray.forEach((item, index) => {
+    this.ToDoItems.forEach((item, index) => {
       if(task.title === item.title) {
-        this.doArray.splice(index, 1)
+        this.ToDoItems.splice(index, 1)
       }
     });
     console.log(`
     =========== TASK REMOVED ===========
     Task ${task.title} removed from the list
     `)
-    return this.doArray.length
+    return this.ToDoItems.length
   }
 }
 
@@ -82,4 +74,4 @@ myTodos.listAllTasks();
 console.log("Number of items:", myTodos.deleteTask(task3));
 console.log("Number of items:", myTodos.deleteTask(task4));
 console.log("Number of items:", myTodos.deleteTask(task5));
-myTodos.listUncomplete();
+// myTodos.listUncomplete();
